@@ -10,6 +10,11 @@ from openpyxl.styles import Font, Alignment
 all_tpye = ['生活必须', '干活', '专业发展', '个人发展', '运动', '享受', '浪费']
 
 
+def deleterows(worksheet, row_num):
+    for i in range(worksheet.max_col):
+        worksheet[i][row_num].value = None
+
+
 class time_24h():
     def __init__(self, time):
         comma_index = time.find('.')
@@ -115,6 +120,8 @@ class workbook():
         if (block_event_list[0].count('.') != 1) or (int(
                 block_event_list[2]) < 1) or (int(block_event_list[2]) > 7):
             is_input_right = False
+        self.find_end()
+        self.get_last_time()
         return is_input_right
 
     def add_new_sheet(self):
@@ -171,8 +178,10 @@ class workbook():
                                            vertical='center')
 
     def delete_last_one(self):
-        self.ws.delete_rows(self.end_row - 1, self.end_row)
+        delete_rows(self.ws, self.end_row - 1)
         self.end_row -= 1
+        self.find_end()
+        self.get_last_time()
         print('\n*****删除完成*****\n')
 
 
