@@ -70,7 +70,7 @@ class workbook():
 
     def find_end(self):
         for i in range(2, self.ws.max_row):
-            if self.ws[i][0].value is None:
+            if (self.ws[i][0].value is None) or (self.ws[i][0].value == 0):
                 self.end_row = i
                 break
             #else:
@@ -141,9 +141,9 @@ class workbook():
             sumtime = self.ws[self.ws.max_row - 2][i + 2].value
             print("{:8}\t{:3}小时{}分钟".format(all_tpye[i], int(sumtime / 60),
                                             sumtime % 60))
-            if 0 < i < 6:
+            if 0 < i < 5:
                 sum_effective_time += sumtime
-        print("\033[31m{:8}\t{:3}小时{}分钟\033[37m".format(
+        print("{:8}\t{:3}小时{}分钟".format(
             '有效时间', int(sum_effective_time / 60), sum_effective_time % 60))
         print('***************************')
 
@@ -212,7 +212,7 @@ def input_new_event_block():
 
 
 def main():
-    adr = '/media/tim/新加卷/时间管理.xlsx'
+    adr = 'D:\时间管理.xlsx'
     mytable = workbook(adr)
 
     while True:
