@@ -178,7 +178,8 @@ class workbook():
                                            vertical='center')
 
     def delete_last_one(self):
-        delete_rows(self.ws, self.end_row - 1)
+        for i in range(0,8):
+            self.ws[self.end_row-1][i].value = None
         self.end_row -= 1
         self.find_end()
         self.get_last_time()
