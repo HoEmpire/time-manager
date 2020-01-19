@@ -11,8 +11,8 @@ all_tpye = ['生活必须', '干活', '专业发展', '个人发展', '运动', 
 
 
 def deleterows(worksheet, row_num):
-    for i in range(worksheet.max_col):
-        worksheet[i][row_num].value = None
+    for i in range(11):
+        worksheet[row_num][i].value = None
 
 
 class time_24h():
@@ -141,7 +141,7 @@ class workbook():
             sumtime = self.ws[self.ws.max_row - 2][i + 2].value
             print("{:8}\t{:3}小时{}分钟".format(all_tpye[i], int(sumtime / 60),
                                             sumtime % 60))
-            if 0 < i < 6:
+            if 0 < i < 5:
                 sum_effective_time += sumtime
         print("\033[31m{:8}\t{:3}小时{}分钟\033[37m".format(
             '有效时间', int(sum_effective_time / 60), sum_effective_time % 60))
@@ -178,7 +178,7 @@ class workbook():
                                            vertical='center')
 
     def delete_last_one(self):
-        delete_rows(self.ws, self.end_row - 1)
+        deleterows(self.ws, self.end_row - 1)
         self.end_row -= 1
         self.find_end()
         self.get_last_time()
